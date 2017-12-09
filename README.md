@@ -1,4 +1,4 @@
-# CNN- Image Compression Convolutional Neural Network Image Compression
+# Convolutional Neural Network (CNN) Image Compression
 
 Training:
 
