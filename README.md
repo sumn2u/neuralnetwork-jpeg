@@ -1,4 +1,4 @@
-# NPEG - Neural Network Image Compression
+# CNN- Image Compression Convolutional Neural Network Image Compression
 
 Training:
 
