@@ -135,6 +135,7 @@ def show(threshold=.5):
     vis.show_batch_autoscaled(rec2,name='recon(no quant)')
 
 def save():
+    print(enc, "enc")
     enc.save_weights('enc.npy')
     dec.save_weights('dec.npy')
 
