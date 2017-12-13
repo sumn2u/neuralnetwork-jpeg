@@ -33,14 +33,7 @@ To convert the image to a binary string and then convert it back, two CNNs are n
 
 Training architecture (green arrows indicate error reduction as a target, update parameters):
 
-<dot
-digraph{
-  "image(3通道)" -> "Encoder CNN(3->128通道)" -> "sigmoid" -> "Decoder CNN(128->3通道)" -> "MSE(均方差)"
-  "image(3通道)" -> "MSE(均方差)" -> loss
-  loss->"Encoder CNN(3->128通道)"[color=green,constraint=false]
-  loss->"Decoder CNN(128->3通道)"[color=green,constraint=false]
-}
-/>
+![](npeg_graph_0.svg)
 
 Which sigmoid function is the role of the encoder output is limited to between 0 and 1. To make the network more output 0 and less output 1 (for compression), I added a penalty on the generated binary:
 
@@ -50,15 +43,7 @@ loss = tf.reduce_mean((y-x)**2) + tf.reduce_mean(binary_code**2) * 0.01
 
 This structure becomes：
 
-<dot
-digraph{
-  image -> "Encoder CNN" -> "sigmoid" -> "Decoder CNN" -> "MSE(均方差)"
-  image -> "MSE(均方差)" -> loss
-  loss->"Encoder CNN"[color=green,constraint=false]
-  loss->"Decoder CNN"[color=green,constraint=false]
-  "sigmoid" -> "N^2" -> loss
-}
-/>
+![](npeg_graph_1.svg)
 
 After the training began, the situation is this:
 
@@ -83,19 +68,7 @@ If we add Gaussian noise before the sigmoid function, then the encoder and decod
 
 After adding Gaussian noise, the architecture becomes like this:
 
-<dot
-digraph{
-  gaussian -> sum[color=brown,constraint=false]
-  image -> "Encoder CNN" -> sum -> "sigmoid" -> "Decoder CNN" -> "MSE(均方差)"
-  image -> "MSE(均方差)" -> loss
-  "sigmoid" -> "N^2" -> loss
-
-  { rank=same; gaussian sum }
-
-  loss->"Decoder CNN"[color=green,constraint=false]
-  loss->"Encoder CNN"[color=green,constraint=false]
-}
-/>
+![](npeg_graph_2.svg)
 
 The noise standard deviation transferred to 15, the training effect is as follows:
 
