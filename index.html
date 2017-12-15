@@ -10,18 +10,19 @@ window.__cfRocketOptions = {byc:0,p:0,petok:"2db397a4fa8e079084bd88171e5efeb323a
 <p>Reading this article requires basic convolutional neural network knowledge.</p>
 </blockquote>
 <b><h3>  Huffman coding  </h3> </b>
-<p>The best way to encode a binary string is Huffman’s method. The entropy of different binary strings is different, and the length after encoding using the Huffman method is also different, that is, the compression ratio is different.</p>
-<p> During data transmission,data need to be encoded and is converted into binary format with values 0 and 1.If
+<p>The best way to encode a binary string is using Huffman’s coding. The entropy of  two different binary strings is different, and after encoding the length  also varies, that is, the compression ratio is different.
+During data transmission,data need to be encoded and is converted into binary format with values 0 and 1.If
 all the character data is converted to binary format of same length irrespective of their priority,length of the entire
 code will be large.
 So,huffman encoding follows a rule of assigning short length code for most frequently used words and longer length
 code for less frequently used words.Thus the length of entire code gets reduced.</p>
-<p>Here are two strings of binary:</p>
-<p>100001001000000000 - 10010110101101010001</p>
-<p>For the Huffman method, the first string is easier to compress than the second string, resulting in a shorter compressed length.</p>
-<p>Lossy compression of media data in two steps:</p>
+<p>Here are two binary strings:
+  100001001000000000 - 10010110101101010001</p>
+<p>The first string is easier to compress, resulting in a shorter compressed length than second string.</p>
+
+<p>Lossy compression as name implies some data is lost during process. Lossy compression of can be acieved in following steps:</p>
 <ol>
-<li>The media data through certain methods, converted into 0 or 1 more of a binary representation.</li>
+<li>The media data is converted into binary string i.e. 0 or 1 through certain methods.</li>
 <li>Huffman encoding of the results, to achieve compression.</li>
 </ol>
 <h3><b> JPEG </b> </h3>
@@ -29,15 +30,15 @@ code for less frequently used words.Thus the length of entire code gets reduced.
 compression. There are numerous compression standards such as JPEG, JPEG-LS and JPEG-2000. JPEG-LS
 is also called loss less compression so exactly what you see is what you compress in that case there is no irrelevant
 information added. The block diagram of Baseline JPEG Transformation is shown in  </p>
-<p>JPEG does this:</p>
+<p>JPEG goes through the following process:</p>
 <ol>
 <li>Divide the image into several 8x8 tiles</li>
 <li>Convert 8x8 2D images to 64x1 one-dimensional images</li>
-<li>DFT the 64x1 image to get the amplitude and phase at different frequencies</li>
+<li>Discrete Fourier Transform (DFT) the 64x1 image to get the amplitude and phase at different frequencies</li>
 <li>Excluding the smaller items in the DFT results (assuming the human eye is insensitive to these items), the result is that more 0s can be compressed by the Huffman method to be smaller</li>
 <li>Huffman encoding of the results, to achieve compression.</li>
 </ol>
-<p>JPEG This method has many disadvantages. After the DFT reject term, the value of the pixel at the edge changes, causing the image to be discontinuous. The most notable feature of a JPEG-compressed image is its ability to see a large number of 8x8 mosaic tiles in the image.</p>
+<p><b>JPEG</b> This method has many disadvantages. After the DFT reject term, the value of the pixel at the edge changes, causing the image to be discontinuous. The most notable feature of a JPEG-compressed image is its ability to see a large number of 8x8 mosaic tiles in the image.</p>
 <p>Can not cut the image into a piece of a binary string, but the entire image is continuously converted into a large bitmap it? Well, you can try it with Convolutional Neural Network (CNN).</p>
 <h3>Convolutional Neural Networks (CNNs / ConvNets) </h3>
 <p>Convolutional Neural Networks are very similar to ordinary Neural Networks, they are made up of neurons that have learnable weights and biases. Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity. The whole network still expresses a single differentiable score function: from the raw image pixels on one end to class scores at the other. And they still have a loss function (e.g. SVM/Softmax) on the last (fully-connected) layer and all the tips/tricks we developed for learning regular Neural Networks still apply.
