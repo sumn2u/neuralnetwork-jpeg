@@ -38,17 +38,40 @@ information added. The block diagram of Baseline JPEG Transformation is shown in
 <li>Excluding the smaller items in the DFT results (assuming the human eye is insensitive to these items), the result is that more 0s can be compressed by the Huffman method to be smaller</li>
 <li>Huffman encoding of the results, to achieve compression.</li>
 </ol>
-<p><b>JPEG</b> This method has many disadvantages. After the DFT reject term, the value of the pixel at the edge changes, causing the image to be discontinuous. The most notable feature of a JPEG-compressed image is its ability to see a large number of 8x8 mosaic tiles in the image.</p>
-<p>Can not cut the image into a piece of a binary string, but the entire image is continuously converted into a large bitmap it? Well, you can try it with Convolutional Neural Network (CNN).</p>
+<p> This method has many disadvantages:</p>
+<ol>
+  <li> After DFT, the value of the pixel at the edge changes, causing the image to be discontinuous. The most notable feature of a JPEG-compressed image is its ability to see a large number of 8x8 mosaic tiles in the image. </li>
+  <li> The entire image is continuously converted into a large bitmap, can not convert piece of image into binary string. </li>
+</ol>
+<p>Well, you can try it with Convolutional Neural Network (CNN).</p>
 <h3>Convolutional Neural Networks (CNNs / ConvNets) </h3>
-<p>Convolutional Neural Networks are very similar to ordinary Neural Networks, they are made up of neurons that have learnable weights and biases. Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity. The whole network still expresses a single differentiable score function: from the raw image pixels on one end to class scores at the other. And they still have a loss function (e.g. SVM/Softmax) on the last (fully-connected) layer and all the tips/tricks we developed for learning regular Neural Networks still apply.
+<p>Convolutional Neural Networks are very similar to ordinary Neural Networks, they are made up of neurons that have learnable weights and biases.
+  Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity.
+   The whole network still expresses a single differentiable score function: from the raw image pixels on one end to class scores at the other.
+   And they still have a loss function (e.g. SVM/Softmax) on the last (fully-connected) layer and all the training set we developed for learning regular Neural Networks still applies.
 </p>
 <p>To convert the image to a binary string and then convert it back, two CNNs are needed, one responsible for encoding (image -&gt; 0-1 bitmap) and one for decoding (0-1 bitmap -&gt; image).</p>
+
+<b> Training: </b>
+<ol>
+  <li>image -> Encoder CNN -> features</li>
+<li> features += gaussian noise </li>
+<li>features -> sigmoid -> code </li>
+<li>code -> Decoder CNN -> reconstruction </li>
+<li>loss = mean((image-reconstruction) ** 2) + mean(code**2) * 0.01</li>
+
+</ol>
 <p>Training architecture (green arrows indicate error reduction as a target, update parameters):</p>
 <p><img src="npeg_graph_0.svg" alt=""></p>
-<p>Which sigmoid function is the role of the encoder output is limited to between 0 and 1. To make the network more output 0 and less output 1 (for compression), I added a penalty on the generated binary:</p>
+To reduce reconstruction loss, the best encoding strategy for the encoder is to drive its output ("features") large, to reduce artifacts caused by the gaussian noise.
+
+Therefore by increasing the magnitude of the gaussian noise, the code will eventually saturate to 0 or 1.
+
+We encourage sparsity of the code (to allow for further compression) by adding a penalty term <pre><code class="language-python"> (mean(code**2) * 0.01) </code> </pre>, after which the code will tend to include more zeros and less ones.
+
 <pre><code class="language-python">loss = tf.reduce_mean((y-x)**<span class="hljs-number">2</span>) + tf.reduce_mean(binary_code**<span class="hljs-number">2</span>) * <span class="hljs-number">0.01</span>
 </code></pre>
+<p>Which sigmoid function is the role of the encoder output is limited to between 0 and 1. To make the network more output 0 and less output 1 (for compression), I added a penalty on the generated binary:</p>
 <p>This structure becomes：</p>
 <p><img src="npeg_graph_1.svg" alt=""></p>
 <p>After the training began, the situation is this:</p>
@@ -72,5 +95,19 @@ information added. The block diagram of Baseline JPEG Transformation is shown in
 <p>The noise standard deviation transferred to 15, the training effect is as follows:</p>
 <p><img src="npeg_highnoise.jpg" alt=""></p>
 <p>Can see that the network has learned to use binary dither to encode the image content, the binary output is not done on the sigmoid little difference.</p>
+<b>Testing:</b>
+<ol>
+ <li>image -> Encoder CNN -> features </li>
+ <li>features -> sigmoid -> binary quantization -> code </li>
+ </li>code -> Decoder CNN -> reconstruction </li>
+</ol>
 
+
+<b>Credits</b>
+<p>
+CNN structure based on VGG16, https://github.com/ry/tensorflow-vgg16/blob/master/vgg16.py
+</p>
+<p>
+NPEG by Qin Yongliang https://github.com/ctmakro/npeg
+</p>
 </body></html>
