@@ -3,7 +3,7 @@ import canton as ct
 from canton import *
 import tensorflow as tf
 
-# get the fking data
+# get the 
 def cifar():
     from keras.datasets import cifar10
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
