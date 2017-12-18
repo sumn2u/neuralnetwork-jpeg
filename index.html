@@ -62,7 +62,7 @@ information added. The block diagram of Baseline JPEG Transformation is shown in
 
 </ol>
 <p>Training architecture (green arrows indicate error reduction as a target, update parameters):</p>
-<p><img src="npeg_graph_0.svg" alt=""></p>
+<p><img src="training_example.png" alt=""></p>
 To reduce reconstruction loss, the best encoding strategy for the encoder is to drive its output ("features") large, to reduce artifacts caused by the gaussian noise.
 
 Therefore by increasing the magnitude of the gaussian noise, the code will eventually saturate to 0 or 1.
@@ -73,7 +73,7 @@ We encourage sparsity of the code (to allow for further compression) by adding a
 </code></pre>
 <p>Which sigmoid function is the role of the encoder output is limited to between 0 and 1. To make the network more output 0 and less output 1 (for compression), I added a penalty on the generated binary:</p>
 <p>This structure becomes：</p>
-<p><img src="npeg_graph_1.svg" alt=""></p>
+<p><img src="sigmoid.png" alt=""></p>
 <p>After the training began, the situation is this:</p>
 <p><img src="npeg_lownoise.jpg" alt=""></p>
 <p>From left to right:</p>
@@ -91,7 +91,7 @@ We encourage sparsity of the code (to allow for further compression) by adding a
 <p>The answer is to increase the noise!</p>
 <p>If we add Gaussian noise before the sigmoid function, then the encoder and decoder will start to find out that with gray unreliable, only information encoded with 0 and 1 can resist noise.</p>
 <p>After adding Gaussian noise, the architecture becomes like this:</p>
-<p><img src="npeg_graph_2.svg" alt=""></p>
+<p><img src="gaussian_noise.png" alt=""></p>
 <p>The noise standard deviation transferred to 15, the training effect is as follows:</p>
 <p><img src="npeg_highnoise.jpg" alt=""></p>
 <p>Can see that the network has learned to use binary dither to encode the image content, the binary output is not done on the sigmoid little difference.</p>
@@ -108,6 +108,6 @@ We encourage sparsity of the code (to allow for further compression) by adding a
 CNN structure based on VGG16, https://github.com/ry/tensorflow-vgg16/blob/master/vgg16.py
 </p>
 <p>
-NPEG by Qin Yongliang https://github.com/ctmakro/npeg
+NPEG by Qin Yongliang https://github.com/ctmakro/npegha
 </p>
 </body></html>
