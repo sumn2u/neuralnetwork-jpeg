@@ -26,6 +26,10 @@ code for less frequently used words.Thus the length of entire code gets reduced.
 <li>Huffman encoding of the results, to achieve compression.</li>
 </ol>
 <h3><b> JPEG </b> </h3>
+<blockquote>
+<p>To know more about JPEG Algorithm and how it works. Read this paper <a href="http://www.ijsrp.org/research-paper-1217/ijsrp-p7224.pdf">Image Compression Algorithm and JPEG
+Standard</a></p>
+</blockquote>
 <p>Joint Photographic Experts Group (JPEG) has built up a worldwide standard for universally useful, shading, stillpicture
 compression. There are numerous compression standards such as JPEG, JPEG-LS and JPEG-2000. JPEG-LS
 is also called loss less compression so exactly what you see is what you compress in that case there is no irrelevant
@@ -93,7 +97,7 @@ We encourage sparsity of the code (to allow for further compression) by adding a
 <p>After adding Gaussian noise, the architecture becomes like this:</p>
 <p><img src="gaussian_noise.png" alt=""></p>
 <p>The noise standard deviation transferred to 15, the training effect is as follows:</p>
-<p><img src="npeg_highnoise.jpg" alt=""></p>
+<p><img src="cnn1.png" alt=""></p>
 <p>Can see that the network has learned to use binary dither to encode the image content, the binary output is not done on the sigmoid little difference.</p>
 <b>Testing:</b>
 <ol>
@@ -105,9 +109,10 @@ We encourage sparsity of the code (to allow for further compression) by adding a
 
 <b>Credits</b>
 <p>
-CNN structure based on VGG16, https://github.com/ry/tensorflow-vgg16/blob/master/vgg16.py
-</p>
-<p>
-NPEG by Qin Yongliang https://github.com/ctmakro/npegha
+Image Compression Algorithm and JPEG Standard by Suman Kunwar <a href="http://www.ijsrp.org/research-paper-1217/ijsrp-p7224.pdf"> http://www.ijsrp.org/research-paper-1217/ijsrp-p7224.pdf </a> <br/>
+CNN structure based on VGG16, <a href="https://github.com/ry/tensorflow-vgg16/blob/master/vgg16.py">https://github.com/ry/tensorflow-vgg16/blob/master/vgg16.py </a> <br/>
+NPEG by Qin Yongliang <a href="https://github.com/ctmakro/npeg"> https://github.com/ctmakro/npeg </a> <br/>
+JPEG image Compression Algorithm by Suman Kunwar <a href="https://medium.com/@sumn2u/jpeg-image-compression-algorithm-979de35c808d"> https://medium.com/@sumn2u/jpeg-image-compression-algorithm-979de35c808d</a> <br/>
+Image Compression with Neural Networks <a href="https://research.googleblog.com/2016/09/image-compression-with-neural-networks.html"> https://research.googleblog.com/2016/09/image-compression-with-neural-networks.html </a> <br/>
 </p>
 </body></html>
