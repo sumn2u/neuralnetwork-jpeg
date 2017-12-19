@@ -5,7 +5,7 @@ Encode/decode natural images using Neural Network.
 ## Status
 
 Work in progress
---updated by suman kunwar
+--updated by Suman kunwar
 
 ## Try it out
 
@@ -49,9 +49,7 @@ If you need visualization functionality:
 
 ## How it works
 
-> 中文读者可以直接看我的博客，有配图：<https://ctmakro.github.io/site/on_learning/npeg/npeg.html>
-
-For English readers:
+> CNN Image Compression - Neural Network Image Compression：<https://sumn2u.github.io/neuralnetwork-jpeg>
 
 Training:
 
@@ -75,8 +73,7 @@ Testing:
 
 ## About
 
-Original Author: Qin Yongliang
+Original Author: Qin Yongliang and Suman Kunwar
 
-Maintained BY: Suman Kunwar
 
 License: MIT
