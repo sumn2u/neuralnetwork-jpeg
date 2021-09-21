@@ -2,6 +2,19 @@
 
 Encode/decode natural images using Neural Network.
 
+
+**Motivation :**
+> That said, a research paper must include some original contributions,
+introducing novel ideas and proving its validity and improved performance.
+In fact, writing a research paper is the culmination of an intense dedication to research,
+having analysed different hypothesis and assessed their appropriateness.
+
+**Goals :**
+- use different image compression techniques to get compressed images
+- compare different image enhancement algorithms
+- purposed own algorithm
+- compare it to other alogorithms 
+
 ## Status
 
 Work in progress
