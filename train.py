@@ -156,6 +156,3 @@ xt = cifar()
 if __name__ == '__main__':
     feed,test = get_trainer()
     get_session().run(ct.gvi())
-    # for i in range(5):
-    #     r(cnoise=15.0)
-    # save()
