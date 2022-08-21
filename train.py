@@ -1,7 +1,13 @@
 import numpy as np
 import canton as ct
 from canton import *
-import tensorflow as tf
+import matplotlib.pyplot as plt
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # get the 
 def cifar():
@@ -106,7 +112,7 @@ def get_trainer():
 def r(ep=1,cnoise=0.1):
     np.random.shuffle(xt)
     length = len(xt)
-    bs = 20
+    bs = 20 #interval second
     for i in range(ep):
         print('ep',i)
         for j in range(0,length,bs):
@@ -116,7 +122,7 @@ def r(ep=1,cnoise=0.1):
 
             if j%1000==0:
                 show()
-
+        
 def show(threshold=.5):
     from cv2tools import vis,filt
     bs = 16
@@ -151,3 +157,26 @@ xt = cifar()
 if __name__ == '__main__':
     feed,test = get_trainer()
     get_session().run(ct.gvi())
+    # for i in range(5):
+    #     r(cnoise=15.0)
+    
+    # save weights to file
+    # save()
+
+    # load weights from file
+    # load()
+
+    # test model on randomly sampled CIFAR
+    # randomly select input image
+    index = np.random.randint(len(xt))
+    # plot the image
+    plt.imshow(xt[index])
+    plt.gray()
+    # print(xt[index])
+    # load()
+    # show()
+    # for i in [15.0]:
+    #     print(i)
+    #     r(cnoise=i)
+    # save()
+    # 
